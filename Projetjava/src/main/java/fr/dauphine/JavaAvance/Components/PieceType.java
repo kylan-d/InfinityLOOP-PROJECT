@@ -14,29 +14,154 @@ public enum PieceType {
 	;
 
 	public LinkedList<Orientation> setConnectorsList(Object object) {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedList<Orientation> a=new LinkedList<Orientation>();
+		switch(this) {
+		case VOID :
+			
+		case ONECONN : 
+			switch((Orientation)object) {
+			case NORTH :
+				a.add(Orientation.NORTH);
+			case EAST : 
+				a.add(Orientation.EAST);
+			case WEST:
+				a.add(Orientation.WEST);
+			case SOUTH:
+				a.add(Orientation.SOUTH);
+			
+		}
+		case BAR:
+			switch((Orientation)object) {
+			case NORTH :
+				a.add(Orientation.NORTH);
+				a.add(Orientation.SOUTH);
+			case EAST : 
+				a.add(Orientation.EAST);
+				a.add(Orientation.WEST);
+				
+		}
+		case TTYPE:
+			switch((Orientation)object) {
+			case NORTH :
+				a.add(Orientation.NORTH);
+				a.add(Orientation.EAST);
+				a.add(Orientation.WEST);
+			case EAST : 
+				a.add(Orientation.NORTH);
+				a.add(Orientation.EAST);
+				a.add(Orientation.SOUTH);
+			case WEST:
+				a.add(Orientation.NORTH);
+				a.add(Orientation.SOUTH);
+				a.add(Orientation.WEST);
+			case SOUTH:
+				a.add(Orientation.EAST);
+				a.add(Orientation.SOUTH);
+				a.add(Orientation.WEST);
+			
+		}
+			
+		case LTYPE:
+			switch((Orientation)object) {
+			case NORTH :
+				a.add(Orientation.NORTH);
+				a.add(Orientation.EAST);
+			case EAST : 
+				a.add(Orientation.EAST);
+				a.add(Orientation.SOUTH);
+			case WEST:
+				a.add(Orientation.NORTH);
+				a.add(Orientation.WEST);
+			case SOUTH:
+				a.add(Orientation.SOUTH);
+				a.add(Orientation.WEST);
+			
+		}
+		case FOURCONN:
+			a.add(Orientation.NORTH);
+			a.add(Orientation.EAST);
+			a.add(Orientation.SOUTH);
+			a.add(Orientation.WEST);
+		
+	}
+		return a;
 	}
 	// Each Type has a number of connectors and a specific value
 
 	public Orientation getOrientation(Object orifromValue) {
-		// TODO Auto-generated method stub
-		return null;
+		switch(this) {
+		case VOID :
+			return Orientation.NORTH;
+		case ONECONN : 
+			return (Orientation) orifromValue;
+		case BAR:
+			if((Orientation) orifromValue==Orientation.SOUTH || (Orientation) orifromValue==Orientation.NORTH ){
+				return Orientation.NORTH;
+			}
+			else {
+				return Orientation.EAST;
+			}
+		
+		case TTYPE:
+			return (Orientation) orifromValue;
+		case LTYPE:
+			return (Orientation) orifromValue;
+		case FOURCONN:
+			return Orientation.NORTH;
+		default : return Orientation.NORTH;
+	}
 	}
 
 	public static PieceType getTypefromValue(int typeValue) {
-		// TODO Auto-generated method stub
-		return null;
+		return values()[typeValue];
 	}
 
 	public ArrayList<Orientation> getListOfPossibleOri() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Orientation> a=new ArrayList<Orientation>();
+		switch(this) {
+		case VOID :
+			a.add(Orientation.NORTH);
+		case ONECONN : 
+			a.add(Orientation.NORTH);
+			a.add(Orientation.EAST);
+			a.add(Orientation.SOUTH);
+			a.add(Orientation.WEST);
+		case BAR:
+			a.add(Orientation.NORTH);
+			a.add(Orientation.EAST);
+		case TTYPE:
+			a.add(Orientation.NORTH);
+			a.add(Orientation.EAST);
+			a.add(Orientation.SOUTH);
+			a.add(Orientation.WEST);
+		case LTYPE:
+			a.add(Orientation.NORTH);
+			a.add(Orientation.EAST);
+			a.add(Orientation.SOUTH);
+			a.add(Orientation.WEST);
+		case FOURCONN:
+			a.add(Orientation.NORTH);
+		
+	}
+		return a;
 	}
 
 	public int getNbConnectors() {
-		// TODO Auto-generated method stub
-		return 0;
+		switch(this) {
+		case VOID :
+			return 0;
+		case ONECONN : 
+			return 1;
+		case BAR:
+			return 2;
+		case TTYPE:
+			return 3;
+		case LTYPE:
+			return 2;
+		case FOURCONN:
+			return 4;
+		default : return 0;
+	}
 	}
 
 

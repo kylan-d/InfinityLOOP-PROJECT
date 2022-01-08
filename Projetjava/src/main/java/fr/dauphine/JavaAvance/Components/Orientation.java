@@ -12,16 +12,25 @@ public enum Orientation {
 	;
 
 	public static Object getOrifromValue(int orientationValue) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return values()[orientationValue];
 	}
 	/* Implement all the possible orientations and 
 	 *  required methods to rotate
 	 */
 
 	public Object turn90() {
-		// TODO Auto-generated method stub
-		return null;
+		switch(this) {
+		case NORTH :
+			return EAST;
+		case EAST : 
+			return SOUTH;
+		case WEST:
+			return NORTH;
+		case SOUTH:
+			return WEST;
+		default : return this;
+	}
 	}
 
 	public int[] getOpposedPieceCoordinates(Piece p) {
@@ -30,8 +39,17 @@ public enum Orientation {
 	}
 
 	public Orientation getOpposedOrientation() {
-		// TODO Auto-generated method stub
-		return null;
+		switch(this) {
+		case NORTH :
+			return SOUTH;
+		case EAST : 
+			return WEST;
+		case WEST:
+			return EAST;
+		case SOUTH:
+			return NORTH;
+		default : return this;
+	}
 	}
 
 }
