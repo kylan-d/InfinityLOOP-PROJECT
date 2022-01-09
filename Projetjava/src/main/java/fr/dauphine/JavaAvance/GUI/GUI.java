@@ -39,14 +39,21 @@ public class GUI {
 		Runnable task = new Runnable() {
 			public void run() {
 
-				final Grid grid = Checker.buildGrid(inputFile);
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						GUI window;
-						window = new GUI(grid);
-						window.frame.setVisible(true);
-					}
-				});
+				
+				try {
+					final Grid grid = Checker.buildGrid(inputFile);
+					SwingUtilities.invokeLater(new Runnable() {
+						public void run() {
+							GUI window;
+							window = new GUI(grid);
+							window.frame.setVisible(true);
+						}
+					});
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 
 			}
 		};

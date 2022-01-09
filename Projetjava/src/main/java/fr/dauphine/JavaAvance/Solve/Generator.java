@@ -515,7 +515,26 @@ public class Generator {
         	  }
     	  }
       }
-		
+      for(int i=0;i<h;i++) {
+    	  for(int j=0;j<w;j++) {
+  			int t=new Random().nextInt(4);
+  			if(t==0) {
+				
+  			}
+  			if(t==1) {
+  				inputGrid.getPiece(i, j).turn(); 
+  			}
+  			if(t==2) {
+  				inputGrid.getPiece(i, j).turn();
+  				inputGrid.getPiece(i, j).turn();
+  			}
+  			if(t==3) {
+  				inputGrid.getPiece(i, j).turn();
+  				inputGrid.getPiece(i, j).turn();
+  				inputGrid.getPiece(i, j).turn();
+  			}
+    	  }
+      }
 	}
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
