@@ -137,4 +137,58 @@ public class Checker {
 
 // To be implemented
 	
-}}
+}
+	
+public boolean check(Grid g) {
+	int w=g.getWidth();
+	int h=g.getHeight();
+	boolean a=true;
+	
+	//pour chaque piece, on regarde toute les pièces à qui elle est coonnecté, puis on regarde la pièece à 
+	//qui elle est censé etre connecté et on regarde si cette seconde piece est connecté a la premiere
+	 for(int i=0;i<h;i++) {
+   	  for(int j=0;j<w;j++) {
+   		  Piece p=g.getPiece(i, j);
+   		  if(p.hasLeftConnector()==true) {
+   			  if(j==0) {
+   				  a=false;
+   			  }
+   			  else if(g.getPiece(i, j-1).hasRightConnector()==false) {
+   				  a=false;
+   			  }
+   		  }
+   		  
+   		  if(p.hasRightConnector()==true) {
+   			  if(j==w-1) {
+   				  a=false;
+   			  }
+   			  else if(g.getPiece(i, j+1).hasLeftConnector()==false) {
+   				  a=false;
+   			  }
+   		  }
+   		  
+   		  if(p.hasTopConnector()==true) {
+   			  if(i==0) {
+   				  a=false;
+   			  }
+   			  else if(g.getPiece(i-1, j).hasBottomConnector()==false) {
+   				  a=false;
+   			  }
+   		  }
+   		  
+   		  if(p.hasBottomConnector()==true) {
+   			  if(i==h-1) {
+   				  a=false;
+   			  }
+   			  else if(g.getPiece(i+1, j).hasTopConnector()==false) {
+   				  a=false;
+   			  }
+   		  }
+   	  }
+
+	 }
+		return a;
+}
+	
+
+}
