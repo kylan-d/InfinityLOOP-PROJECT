@@ -15,73 +15,97 @@ public enum PieceType {
 
 	public LinkedList<Orientation> setConnectorsList(Object object) {
 		LinkedList<Orientation> a=new LinkedList<Orientation>();
+
 		switch(this) {
 		case VOID :
 			
-		case ONECONN : 
+			break;
+		case ONECONN :
+			
 			switch((Orientation)object) {
 			case NORTH :
 				a.add(Orientation.NORTH);
+				break;
 			case EAST : 
 				a.add(Orientation.EAST);
+				break;
 			case WEST:
 				a.add(Orientation.WEST);
+				break;
 			case SOUTH:
 				a.add(Orientation.SOUTH);
+				break;
 			
 		}
+			break;
 		case BAR:
+			
 			switch((Orientation)object) {
 			case NORTH :
 				a.add(Orientation.NORTH);
 				a.add(Orientation.SOUTH);
+				break;
 			case EAST : 
 				a.add(Orientation.EAST);
 				a.add(Orientation.WEST);
+				break;
 				
 		}
+			break;
 		case TTYPE:
 			switch((Orientation)object) {
 			case NORTH :
 				a.add(Orientation.NORTH);
 				a.add(Orientation.EAST);
 				a.add(Orientation.WEST);
+				break;
 			case EAST : 
 				a.add(Orientation.NORTH);
 				a.add(Orientation.EAST);
 				a.add(Orientation.SOUTH);
+				break;
 			case WEST:
 				a.add(Orientation.NORTH);
 				a.add(Orientation.SOUTH);
 				a.add(Orientation.WEST);
+				break;
 			case SOUTH:
 				a.add(Orientation.EAST);
 				a.add(Orientation.SOUTH);
 				a.add(Orientation.WEST);
+				break;
 			
 		}
-			
+			break;
 		case LTYPE:
+			
 			switch((Orientation)object) {
 			case NORTH :
 				a.add(Orientation.NORTH);
 				a.add(Orientation.EAST);
+				break;
 			case EAST : 
 				a.add(Orientation.EAST);
 				a.add(Orientation.SOUTH);
+				break;
 			case WEST:
 				a.add(Orientation.NORTH);
 				a.add(Orientation.WEST);
+				break;
 			case SOUTH:
 				a.add(Orientation.SOUTH);
 				a.add(Orientation.WEST);
+				break;
 			
 		}
+			break;
 		case FOURCONN:
+			
 			a.add(Orientation.NORTH);
 			a.add(Orientation.EAST);
 			a.add(Orientation.SOUTH);
 			a.add(Orientation.WEST);
+			break;
 		
 	}
 		return a;
@@ -121,26 +145,32 @@ public enum PieceType {
 		switch(this) {
 		case VOID :
 			a.add(Orientation.NORTH);
+			break;
 		case ONECONN : 
 			a.add(Orientation.NORTH);
 			a.add(Orientation.EAST);
 			a.add(Orientation.SOUTH);
 			a.add(Orientation.WEST);
+			break;
 		case BAR:
 			a.add(Orientation.NORTH);
 			a.add(Orientation.EAST);
+			break;
 		case TTYPE:
 			a.add(Orientation.NORTH);
 			a.add(Orientation.EAST);
 			a.add(Orientation.SOUTH);
 			a.add(Orientation.WEST);
+			break;
 		case LTYPE:
 			a.add(Orientation.NORTH);
 			a.add(Orientation.EAST);
 			a.add(Orientation.SOUTH);
 			a.add(Orientation.WEST);
+			break;
 		case FOURCONN:
 			a.add(Orientation.NORTH);
+			break;
 		
 	}
 		return a;

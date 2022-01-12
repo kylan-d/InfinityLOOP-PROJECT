@@ -94,6 +94,10 @@ public class Main {
             formatter.printHelp( "phineloopgen", options );         
             System.exit(1); // exit with error      
     }
+    Grid grid=new Grid(width,height);
+    Generator g=new Generator();
+    g.generateLevel(inputFile, grid);
+    
         System.exit(0); // exit with success                            
     }
 	

@@ -15,7 +15,7 @@ import fr.dauphine.JavaAvance.GUI.Grid;
 
 public class Generator {
 
-	private static Grid filledGrid;
+	public static Grid filledGrid;
 
 	/**
 	 * @param output
@@ -31,11 +31,13 @@ public class Generator {
       int h=inputGrid.getHeight();
       int[][] nbc=new int[h][w];
       int nbcc=inputGrid.getNbcc();
+      filledGrid=inputGrid;
       //int nbcc=inputGrid.getNbcc();
       
       // sans nbcc
       for(int i=0;i<h;i++) {
     	  for(int j=0;j<w;j++) {
+
         	  if((i==0 && j==0)) {
         		  int t=new Random().nextInt(3);
         		  
