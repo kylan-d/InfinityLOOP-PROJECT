@@ -34,8 +34,28 @@ public enum Orientation {
 	}
 
 	public int[] getOpposedPieceCoordinates(Piece p) {
-		// TODO Auto-generated method stub
-		return null;
+		int[] c=new int[2];
+		int x=p.getPosX();
+		int y=p.getPosY();
+		switch(this) {
+		case NORTH :
+			c[0]=y-1;
+			c[1]=x;
+			return c;
+		case EAST : 
+			c[0]=y;
+			c[1]=x+1;
+			return c;
+		case WEST:
+			c[0]=y;
+			c[1]=x-1;
+			return c;
+		case SOUTH:
+			c[0]=y+1;
+			c[1]=x;
+			return c;}
+		return c;
+	
 	}
 
 	public Orientation getOpposedOrientation() {

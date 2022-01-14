@@ -22,7 +22,18 @@ import fr.dauphine.JavaAvance.GUI.Grid;
 public class Generator {
 
 	public static Grid filledGrid;
-
+	public static void generateLevel(String fileName, Grid inputGrid) {
+		
+		int nbcc=inputGrid.getNbcc();
+	//	if(nbcc==-1) {
+			
+			generateLevelnonbcc(fileName,inputGrid);
+	//	}
+		/*else {
+			
+			generateLevelWnbcc(fileName,inputGrid);
+		}*/
+	}
 	/**
 	 * @param output
 	 *            file name
@@ -32,7 +43,8 @@ public class Generator {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void generateLevel(String fileName, Grid inputGrid) {
+	public static void generateLevelnonbcc(String fileName, Grid inputGrid) {
+		
       int w=inputGrid.getWidth();
       int h=inputGrid.getHeight();
       int[][] nbc=new int[h][w];
@@ -605,6 +617,634 @@ public class Generator {
       }
       copyfile(fileName,filledGrid);
 	}
+
+	
+	
+/*	
+	
+	
+	public static void generateLevelWnbcc(String fileName, Grid inputGrid) {
+	      int w=inputGrid.getWidth();
+	      int h=inputGrid.getHeight();
+	      int[][] nbc=new int[h][w];
+	      int nbcc=inputGrid.getNbcc();
+	      filledGrid=inputGrid;
+	      
+	      
+	      
+	      int nblink=0;
+	      // sans nbcc
+	      for(int i=0;i<h;i++) {
+	    	  for(int j=0;j<w;j++) {
+	    		  	System.out.println((nblink));
+	        	  if((i==0 && j==0)) {
+	        		  int t=new Random().nextInt(3);
+	        		  
+	        		  if(t==0) {
+	        			 
+	        				 
+	        				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	        				  inputGrid.setPiece(i, j, p);;
+	        				  nbc[i][j]=0;
+	        				  
+	        				  
+	        			  
+
+	        		  }
+	        		  if(t==1) {
+	        			  nblink++;
+	        			  int o=new Random().nextInt(2);
+	        			  if(o==1) {
+	        				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	        				  inputGrid.setPiece(i, j, p);
+	        				  nbc[i][j]=1;
+	        			  }
+	        			  if(o==0) {
+	        				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	        				  inputGrid.setPiece(i, j, p);
+	        				  nbc[i][j]=1;
+	        				 
+	        			  }
+	        		  }
+	        		  if(t==2) {
+	        			  nblink++;
+	        			  nblink++;
+
+	        				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
+	        				  inputGrid.setPiece(i, j, p);;
+	        				  nbc[i][j]=2;
+	        			  
+	        	  }
+	          
+	        	  }
+	        	  else if((i==0 && j==w-1)) {
+	          		  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        			 
+	          			int t=new Random().nextInt(2);
+	          			if(nblink==1) {
+	          				t=1;
+	          			}
+	          			if(t==0) {
+	          				nblink--;
+	          				
+	      				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	      				  inputGrid.setPiece(i, j, p);
+	      				  nbc[i][j]=1;
+	          			}
+	          			if(t==1) {
+	          				
+	      				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=2;
+	          			}
+
+	        		  }
+	          		  else {
+	          			 
+	            			int t=new Random().nextInt(2);
+	              			if(t==0) {
+	              				nblink++;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	          				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=0;
+	              			}
+
+	    				 
+	          			
+	          		  }
+	        	  }
+	        	  else if(i==0) {
+	          		  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        			  
+	            			int t=new Random().nextInt(4);
+		          			if(nblink==1) {
+		          				t=new Random().nextInt(3)+1;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	              				
+	          				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	              			if(t==2) {
+	              				
+	          				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	              			if(t==3) {
+	              				
+	              				nblink++;
+	          				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=3;
+	              			}
+	        		  }
+	        		  else {
+
+	          			int t=new Random().nextInt(3);
+	          			if(t==0) {
+	          				nblink++;
+	          			  int o=new Random().nextInt(2);
+	          			  if(o==1) {
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	          			  }
+	          			  if(o==0) {
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	          				 
+	          			  }
+	          			}
+	          			if(t==1) {
+	          				nblink++;
+	          				nblink++;
+	      				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=2;
+	          			}
+	          			if(t==2) {
+	      				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=0;
+	          			}
+	        		  }
+	        	  }
+	        	  else if(j==0 && i!=h-1) {
+	          		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()){
+	        			 
+	          			int t=new Random().nextInt(4);
+	          			if(nblink==1) {
+	          				t=new Random().nextInt(3)+1;
+	          			}
+	          			if(t==0) {
+	          				nblink--;
+	      				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);
+	      				  nbc[i][j]=1;
+	          			}
+	          			if(t==1) {
+	          				
+	        				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
+	        				  inputGrid.setPiece(i, j, p);;
+	        				  nbc[i][j]=2;
+	          			}
+	          			if(t==2) {
+	          				
+	          				nblink++;
+	      				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.EAST);
+	      				  inputGrid.setPiece(i, j, p);
+	      				  nbc[i][j]=3;
+	          			}
+	          			if(t==3) {
+	          				
+	      				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=2;
+	          			}
+	          			  
+	        		  }
+	        		  else {
+	        			 
+	          			int t=new Random().nextInt(3);
+	          			if(t==0) {
+	          				nblink++;
+	          			  int o=new Random().nextInt(2);
+	          			  if(o==1) {
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	          			  }
+	          			  if(o==0) {
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	          				 
+	          			  }
+	          			}
+	          			if(t==1) {
+	      				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=0;
+	          			}
+	          			if(t==2) {
+	          				nblink++;
+	          				nblink++;
+	      				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=2;
+	          			}
+
+	        		  }
+	        	  }
+	        	  else if(j==w-1 && i!=h-1) {
+	        		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()) {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        				  
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==2) {
+		          				t=0;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=3;
+	              			}
+	              			if(t==1) {
+	              				nblink--;
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	        			  }
+	        			  else{
+	        				  
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==1) {
+		          				t=1;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	              				
+	            				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
+	              				  inputGrid.setPiece(i, j, p);;
+	              				  nbc[i][j]=2;
+	              			}
+	        			  }
+	        		  }
+	        		  else {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	            			 
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==1) {
+		          				t=1;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	              				
+	          				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	        			  }
+	        			  else{
+	        				  
+	              			int t=new Random().nextInt(2);
+	              			if(t==0) {
+	              				nblink++;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	          				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=0;
+	              			}
+	        			  }
+	        		  }
+	        	  }        	  
+	        	  else if(j==0 && i==h-1) {
+	          		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()){
+	        			  
+	          			int t=new Random().nextInt(2);
+	          			if(nblink==1) {
+	          				t=0;
+	          			}
+	          			if(t==0) {
+	          				
+	      				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=2;
+	          			}
+	          			if(t==1) {
+	          				nblink--;
+	      				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);
+	      				  nbc[i][j]=1;
+	          			}
+	          			  
+	        		  }
+	        		  else {
+	        			  
+	          			int t=new Random().nextInt(2);
+	          			if(t==0) {
+	          				nblink++;
+	      				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	      				  inputGrid.setPiece(i, j, p);
+	      				  nbc[i][j]=1;
+	          			}
+	          			if(t==1) {
+	      				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	      				  inputGrid.setPiece(i, j, p);;
+	      				  nbc[i][j]=0;
+	          			}
+	        		  }
+	        	  }
+	        	  else if(j==w-1 && i==h-1) {
+	        		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()) {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        				  nblink--;
+	        				  nblink--;
+	        				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
+	        				  inputGrid.setPiece(i, j, p);;
+	        				  nbc[i][j]=2;
+	        			  }
+	        			  else{
+	        				  nblink--;
+	        				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	        				  inputGrid.setPiece(i, j, p);
+	        				  nbc[i][j]=1;
+	        			  }
+	        		  }
+	        		  else {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        				  nblink--;
+	        				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	        				  inputGrid.setPiece(i, j, p);
+	        				  nbc[i][j]=1;
+	        			  }
+	        			  else {
+	        				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	        				  inputGrid.setPiece(i, j, p);;
+	        				  nbc[i][j]=0; 
+	        			  }
+	        			  
+	        		  }
+	        	  }
+	        	  else if(i==h-1) {
+	        		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()) {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        				  
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==2) {
+		          				t=1;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	              			if(t==1) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=3;
+	              			}
+	        			  }
+	        			  else{
+	        				  
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==1) {
+		          				t=0;
+		          			}
+	              			if(t==0) {
+	              				
+	          				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=2;
+	              			}
+	              			if(t==1) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	        			  }
+	        		  }
+	        		  else {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	            			  
+	              			int t=new Random().nextInt(2);
+		          			if(nblink==1) {
+		          				t=1;
+		          			}
+	              			if(t==0) {
+	              				nblink--;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	              			if(t==1) {
+	              				nblink++;
+	            				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
+	              				  inputGrid.setPiece(i, j, p);;
+	              				  nbc[i][j]=2;
+	              			}
+	        			  }
+	        			  else {
+	        				
+	              			int t=new Random().nextInt(2);
+	              			if(t==0) {
+	          				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	          				  inputGrid.setPiece(i, j, p);;
+	          				  nbc[i][j]=0;
+	              			}
+	              			if(t==1) {
+	              				nblink++;
+	          				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	          				  inputGrid.setPiece(i, j, p);
+	          				  nbc[i][j]=1;
+	              			}
+	        			  }
+	        			  
+	        		  }  
+	        	  }
+	        	  else {
+	        		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()) {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	        				
+	                			int t=new Random().nextInt(3);
+			          			if(nblink==2) {
+			          				t=new Random().nextInt(2)+1;
+			          			}
+			          			if(nblink==1) {
+			          				t=2;
+			          			}
+	                  			if(t==0) {
+	                  				nblink--;
+	                  				nblink--;
+	              				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
+	            				  inputGrid.setPiece(i, j, p);;
+	            				  nbc[i][j]=2;
+	                  			}
+	                  			if(t==1) {
+	                  				nblink--;
+	                  			  int o=new Random().nextInt(2);
+	                			  if(o==1) {
+	                				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.NORTH);
+	                				  inputGrid.setPiece(i, j, p);
+	                				  nbc[i][j]=3;
+	                			  }
+	                			  if(o==0) {
+	                				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.WEST);
+	                				  inputGrid.setPiece(i, j, p);
+	                				  nbc[i][j]=3;
+	                				 
+	                			  }
+	                  			}
+	                  			if(t==2) {
+
+	                				  Piece p=new Piece(i,j,PieceType.FOURCONN,Orientation.NORTH);
+	                  				  inputGrid.setPiece(i, j, p);;
+	                  				  nbc[i][j]=4;
+	                  			}
+	        			  }
+	        			  else{
+	        				  
+	                			int t=new Random().nextInt(4);
+			          			if(nblink==1) {
+			          				t=new Random().nextInt(3)+1;
+			          			}
+	                  			if(t==0) {
+	                  				nblink--;
+	              				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
+	              				  inputGrid.setPiece(i, j, p);
+	              				  nbc[i][j]=1;
+	                  			}
+	                  			if(t==1) {
+	                  				
+	                				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
+	                  				  inputGrid.setPiece(i, j, p);;
+	                  				  nbc[i][j]=2;
+	                  			}
+	                  			if(t==2) {
+	                  				nblink++;
+	              				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.EAST);
+	              				  inputGrid.setPiece(i, j, p);
+	              				  nbc[i][j]=3;
+	                  			}
+	                  			if(t==3) {
+	                  				
+	              				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
+	            				  inputGrid.setPiece(i, j, p);;
+	            				  nbc[i][j]=2;
+	                  			}
+	        			  }
+	        		  }
+	        		  else {
+	        			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
+	            			 
+	                			int t=new Random().nextInt(4);
+			          			if(nblink==1) {
+			          				t=new Random().nextInt(3);
+			          			}
+	                  			if(t==0) {
+	                  				
+	                				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
+	                  				  inputGrid.setPiece(i, j, p);;
+	                  				  nbc[i][j]=2;
+	                  			}
+	                  			if(t==1) {
+	                  				nblink++;
+	                  				
+	              				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.SOUTH);
+	              				  inputGrid.setPiece(i, j, p);
+	              				  nbc[i][j]=3;
+	                  			}
+	                  			if(t==2) {
+	                  				
+	              				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
+	            				  inputGrid.setPiece(i, j, p);;
+	            				  nbc[i][j]=2;
+	                  			}
+	                  			if(t==3) {
+	                  				nblink--;
+	              				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
+	              				  inputGrid.setPiece(i, j, p);
+	              				  nbc[i][j]=1;
+	                  			}
+	        			  }
+	        			  else {
+	        				
+	                			int t=new Random().nextInt(3);
+	                  			if(t==0) {
+	              				  Piece p=new Piece(i,j,PieceType.VOID,Orientation.NORTH);
+	            				  inputGrid.setPiece(i, j, p);;
+	            				  nbc[i][j]=0;
+	                  			}
+	                  			if(t==1) {
+	                  				nblink++;
+	                  				nblink++;
+	              				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
+	            				  inputGrid.setPiece(i, j, p);;
+	            				  nbc[i][j]=2;
+	                  			}
+	                  			if(t==2) {
+	                  				nblink++;
+	                  			  int o=new Random().nextInt(2);
+	                			  if(o==1) {
+	                				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
+	                				  inputGrid.setPiece(i, j, p);
+	                				  nbc[i][j]=1;
+	                			  }
+	                			  if(o==0) {
+	                				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
+	                				  inputGrid.setPiece(i, j, p);
+	                				  nbc[i][j]=1;
+	                				 
+	                			  }
+	                  			}
+	        			  }
+	        			  
+	        		  }
+	        	  }
+	    	  }
+	      }
+	      for(int i=0;i<h;i++) {
+	    	  for(int j=0;j<w;j++) {
+	  			int t=new Random().nextInt(4);
+	  			if(t==0) {
+					
+	  			}
+	  			if(t==1) {
+	  				inputGrid.getPiece(i, j).turn(); 
+	  			}
+	  			if(t==2) {
+	  				inputGrid.getPiece(i, j).turn();
+	  				inputGrid.getPiece(i, j).turn();
+	  			}
+	  			if(t==3) {
+	  				inputGrid.getPiece(i, j).turn();
+	  				inputGrid.getPiece(i, j).turn();
+	  				inputGrid.getPiece(i, j).turn();
+	  			}
+	    	  }
+	      }
+	      copyfile(fileName,filledGrid);
+		}
+
+		*/
+	
+	
+	
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
 		int hmax = inputGrid.getHeight();
@@ -637,10 +1277,18 @@ public class Generator {
 		return new int[] { tmpi, tmpj };
 	}
 	
+	
+	
 	public static void copyfile(String fileName, Grid inputGrid) {
-		Path file= Paths.get(fileName);
+		
+		try{
+			Path file= Paths.get(fileName);
+
+		
 		Charset charset = Charset.forName("US-ASCII");
+		
 		try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {
+		
 			String w="";
 			w=w+inputGrid.getWidth();
 			String h="";
@@ -698,7 +1346,11 @@ public class Generator {
 		    } catch (IOException e) {
 		      e.printStackTrace();
 		    }
-		
+		}
+		catch(Exception E) {
+			 E.printStackTrace();
+		}
+	
 	}
 
 }
