@@ -1,6 +1,12 @@
 package fr.dauphine.JavaAvance.Solve;
 
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
@@ -32,7 +38,7 @@ public class Generator {
       int[][] nbc=new int[h][w];
       int nbcc=inputGrid.getNbcc();
       filledGrid=inputGrid;
-      //int nbcc=inputGrid.getNbcc();
+      int nblink=0;
       
       // sans nbcc
       for(int i=0;i<h;i++) {
@@ -48,10 +54,12 @@ public class Generator {
         				  inputGrid.setPiece(i, j, p);;
         				  nbc[i][j]=0;
         				  
+        				  
         			  
 
         		  }
         		  if(t==1) {
+        			  nblink++;
         			  int o=new Random().nextInt(2);
         			  if(o==1) {
         				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
@@ -66,6 +74,8 @@ public class Generator {
         			  }
         		  }
         		  if(t==2) {
+        			  nblink++;
+        			  nblink++;
 
         				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
         				  inputGrid.setPiece(i, j, p);;
@@ -79,11 +89,14 @@ public class Generator {
         			 
           			int t=new Random().nextInt(2);
           			if(t==0) {
+          				nblink--;
+          				
       				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
       				  inputGrid.setPiece(i, j, p);
       				  nbc[i][j]=1;
           			}
           			if(t==1) {
+          				
       				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
       				  inputGrid.setPiece(i, j, p);;
       				  nbc[i][j]=2;
@@ -94,6 +107,7 @@ public class Generator {
           			 
             			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink++;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
@@ -113,21 +127,26 @@ public class Generator {
         			  
             			int t=new Random().nextInt(4);
               			if(t==0) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
               			}
               			if(t==1) {
+              				
           				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
               			}
               			if(t==2) {
+              				
           				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
               			}
               			if(t==3) {
+              				
+              				nblink++;
           				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.SOUTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=3;
@@ -137,6 +156,7 @@ public class Generator {
 
           			int t=new Random().nextInt(3);
           			if(t==0) {
+          				nblink++;
           			  int o=new Random().nextInt(2);
           			  if(o==1) {
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
@@ -151,6 +171,8 @@ public class Generator {
           			  }
           			}
           			if(t==1) {
+          				nblink++;
+          				nblink++;
       				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
       				  inputGrid.setPiece(i, j, p);;
       				  nbc[i][j]=2;
@@ -167,21 +189,26 @@ public class Generator {
         			 
           			int t=new Random().nextInt(4);
           			if(t==0) {
+          				nblink--;
       				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
       				  inputGrid.setPiece(i, j, p);
       				  nbc[i][j]=1;
           			}
           			if(t==1) {
+          				
         				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
         				  inputGrid.setPiece(i, j, p);;
         				  nbc[i][j]=2;
           			}
           			if(t==2) {
+          				
+          				nblink++;
       				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.EAST);
       				  inputGrid.setPiece(i, j, p);
       				  nbc[i][j]=3;
           			}
           			if(t==3) {
+          				
       				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
       				  inputGrid.setPiece(i, j, p);;
       				  nbc[i][j]=2;
@@ -192,6 +219,7 @@ public class Generator {
         			 
           			int t=new Random().nextInt(3);
           			if(t==0) {
+          				nblink++;
           			  int o=new Random().nextInt(2);
           			  if(o==1) {
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
@@ -211,6 +239,8 @@ public class Generator {
       				  nbc[i][j]=0;
           			}
           			if(t==2) {
+          				nblink++;
+          				nblink++;
       				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
       				  inputGrid.setPiece(i, j, p);;
       				  nbc[i][j]=2;
@@ -224,11 +254,14 @@ public class Generator {
         				  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=3;
               			}
               			if(t==1) {
+              				nblink--;
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
@@ -238,11 +271,13 @@ public class Generator {
         				  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
               			}
               			if(t==1) {
+              				
             				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
               				  inputGrid.setPiece(i, j, p);;
               				  nbc[i][j]=2;
@@ -254,11 +289,13 @@ public class Generator {
             			 
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
               			}
               			if(t==1) {
+              				
           				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
@@ -268,6 +305,7 @@ public class Generator {
         				  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink++;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
@@ -285,11 +323,13 @@ public class Generator {
         			  
           			int t=new Random().nextInt(2);
           			if(t==0) {
+          				
       				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
       				  inputGrid.setPiece(i, j, p);;
       				  nbc[i][j]=2;
           			}
           			if(t==1) {
+          				nblink--;
       				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
       				  inputGrid.setPiece(i, j, p);
       				  nbc[i][j]=1;
@@ -300,6 +340,7 @@ public class Generator {
         			  
           			int t=new Random().nextInt(2);
           			if(t==0) {
+          				nblink++;
       				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
       				  inputGrid.setPiece(i, j, p);
       				  nbc[i][j]=1;
@@ -314,13 +355,14 @@ public class Generator {
         	  else if(j==w-1 && i==h-1) {
         		  if(inputGrid.getPiece(i-1, j).hasBottomConnector()) {
         			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
-        				  
+        				  nblink--;
+        				  nblink--;
         				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
         				  inputGrid.setPiece(i, j, p);;
         				  nbc[i][j]=2;
         			  }
         			  else{
-        				  
+        				  nblink--;
         				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
         				  inputGrid.setPiece(i, j, p);
         				  nbc[i][j]=1;
@@ -328,7 +370,7 @@ public class Generator {
         		  }
         		  else {
         			  if(inputGrid.getPiece(i, j-1).hasRightConnector()){
-            			  
+        				  nblink--;
         				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
         				  inputGrid.setPiece(i, j, p);
         				  nbc[i][j]=1;
@@ -347,11 +389,14 @@ public class Generator {
         				  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink--;
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
               			}
               			if(t==1) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.NORTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=3;
@@ -361,11 +406,13 @@ public class Generator {
         				  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				
           				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
           				  inputGrid.setPiece(i, j, p);;
           				  nbc[i][j]=2;
               			}
               			if(t==1) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
@@ -377,11 +424,13 @@ public class Generator {
             			  
               			int t=new Random().nextInt(2);
               			if(t==0) {
+              				nblink--;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
               			}
               			if(t==1) {
+              				nblink++;
             				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
               				  inputGrid.setPiece(i, j, p);;
               				  nbc[i][j]=2;
@@ -396,6 +445,7 @@ public class Generator {
           				  nbc[i][j]=0;
               			}
               			if(t==1) {
+              				nblink++;
           				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.EAST);
           				  inputGrid.setPiece(i, j, p);
           				  nbc[i][j]=1;
@@ -410,11 +460,14 @@ public class Generator {
         				
                 			int t=new Random().nextInt(3);
                   			if(t==0) {
+                  				nblink--;
+                  				nblink--;
               				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.WEST);
             				  inputGrid.setPiece(i, j, p);;
             				  nbc[i][j]=2;
                   			}
                   			if(t==1) {
+                  				nblink--;
                   			  int o=new Random().nextInt(2);
                 			  if(o==1) {
                 				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.NORTH);
@@ -429,6 +482,7 @@ public class Generator {
                 			  }
                   			}
                   			if(t==2) {
+
                 				  Piece p=new Piece(i,j,PieceType.FOURCONN,Orientation.NORTH);
                   				  inputGrid.setPiece(i, j, p);;
                   				  nbc[i][j]=4;
@@ -438,21 +492,25 @@ public class Generator {
         				  
                 			int t=new Random().nextInt(4);
                   			if(t==0) {
+                  				nblink--;
               				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.NORTH);
               				  inputGrid.setPiece(i, j, p);
               				  nbc[i][j]=1;
                   			}
                   			if(t==1) {
+                  				
                 				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.NORTH);
                   				  inputGrid.setPiece(i, j, p);;
                   				  nbc[i][j]=2;
                   			}
                   			if(t==2) {
+                  				nblink++;
               				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.EAST);
               				  inputGrid.setPiece(i, j, p);
               				  nbc[i][j]=3;
                   			}
                   			if(t==3) {
+                  				
               				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.NORTH);
             				  inputGrid.setPiece(i, j, p);;
             				  nbc[i][j]=2;
@@ -464,21 +522,26 @@ public class Generator {
             			 
                 			int t=new Random().nextInt(4);
                   			if(t==0) {
+                  				
                 				  Piece p=new Piece(i,j,PieceType.BAR,Orientation.EAST);
                   				  inputGrid.setPiece(i, j, p);;
                   				  nbc[i][j]=2;
                   			}
                   			if(t==1) {
+                  				nblink++;
+                  				
               				  Piece p=new Piece(i,j,PieceType.TTYPE,Orientation.SOUTH);
               				  inputGrid.setPiece(i, j, p);
               				  nbc[i][j]=3;
                   			}
                   			if(t==2) {
+                  				
               				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.SOUTH);
             				  inputGrid.setPiece(i, j, p);;
             				  nbc[i][j]=2;
                   			}
                   			if(t==3) {
+                  				nblink--;
               				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.WEST);
               				  inputGrid.setPiece(i, j, p);
               				  nbc[i][j]=1;
@@ -493,11 +556,14 @@ public class Generator {
             				  nbc[i][j]=0;
                   			}
                   			if(t==1) {
+                  				nblink++;
+                  				nblink++;
               				  Piece p=new Piece(i,j,PieceType.LTYPE,Orientation.EAST);
             				  inputGrid.setPiece(i, j, p);;
             				  nbc[i][j]=2;
                   			}
                   			if(t==2) {
+                  				nblink++;
                   			  int o=new Random().nextInt(2);
                 			  if(o==1) {
                 				  Piece p=new Piece(i,j,PieceType.ONECONN,Orientation.SOUTH);
@@ -537,6 +603,7 @@ public class Generator {
   			}
     	  }
       }
+      copyfile(fileName,filledGrid);
 	}
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
@@ -568,6 +635,70 @@ public class Generator {
 		}
 		//DEBUGSystem.out.println("tmpi =" + tmpi + " & tmpj = " + tmpj);
 		return new int[] { tmpi, tmpj };
+	}
+	
+	public static void copyfile(String fileName, Grid inputGrid) {
+		Path file= Paths.get(fileName);
+		Charset charset = Charset.forName("US-ASCII");
+		try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {
+			String w="";
+			w=w+inputGrid.getWidth();
+			String h="";
+			h=h+inputGrid.getHeight();
+		      writer.write(w, 0, w.length());
+		      writer.newLine();
+		      writer.write(h, 0, h.length());
+		      writer.newLine();
+		      for(int i=0;i<inputGrid.getHeight();i++) {
+		    	  for(int j=0;j<inputGrid.getWidth();j++) {
+		    		  String Piece="";
+		    		  PieceType t=inputGrid.getPiece(i, j).getType();
+		    		  Orientation o=inputGrid.getPiece(i, j).getOrientation();
+		    			switch(t) {
+		    			case VOID :
+		    				Piece=Piece+0+" ";
+		    				break;
+		    			case ONECONN : 
+		    				Piece=Piece+1+" ";
+		    				break;
+		    			case BAR:
+		    				Piece=Piece+2+" ";
+		    				break;
+		    			case TTYPE:
+		    				Piece=Piece+3+" ";
+		    				break;
+		    			case LTYPE:
+		    				Piece=Piece+5+" ";
+		    				break;
+		    			case FOURCONN:
+		    				Piece=Piece+4+" ";
+		    				break;
+		    			
+		    		}
+		    			
+		    			switch(o) {
+		    			case NORTH :
+		    				Piece=Piece+0;;
+		    				break;
+		    			case EAST : 
+		    				Piece=Piece+1;
+		    				break;
+		    			case WEST:
+		    				Piece=Piece+2;
+		    				break;
+		    			case SOUTH:
+		    				Piece=Piece+3;
+		    				break;	
+		    		}
+		    		writer.write(Piece, 0, Piece.length());	
+		    		writer.newLine();
+		    	  }
+		      	}
+		      writer.close();
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }
+		
 	}
 
 }

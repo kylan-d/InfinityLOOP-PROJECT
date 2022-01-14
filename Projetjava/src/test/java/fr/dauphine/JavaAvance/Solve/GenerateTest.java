@@ -19,7 +19,7 @@ public class GenerateTest {
 Generator g;
 	@Before
 	public void setUpTests() {
-		Grid grid=new Grid(200,200);
+		Grid grid=new Grid(20,20);
 	    g=new Generator();
 	    g.generateLevel(null, grid);
 
