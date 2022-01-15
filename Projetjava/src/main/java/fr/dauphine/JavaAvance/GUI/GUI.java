@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.lang.Thread.State;
+import java.net.URL;
 import java.security.PublicKey;
 import java.security.DrbgParameters.NextBytes;
 import java.util.Random;
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.plaf.nimbus.AbstractRegionPainter;
-
+import java.awt.Font;
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.Components.PieceType;
@@ -35,7 +36,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-
+//import javafx.scene.text.Font;
+import java.awt.FlowLayout;
 
 
 /**
@@ -49,6 +51,7 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel headerLaberJLabel;
 	private JPanel controlPanel;
 	private JButton start;
+	private JFrame jFrame;
 	/**
 	 * 
 	 * @param inputFile
@@ -112,17 +115,26 @@ public class GUI extends JFrame implements ActionListener{
 	     controlPanel = new JPanel();
 		 controlPanel.setLayout(new GridLayout(4,4));
 		 controlPanel.setMaximumSize(new Dimension(400,400));
-	     Dimension size = new Dimension(30,10);
+	    
 		 
 	     headerLaberJLabel = new JLabel("Welcome tu game Infinite Loop", JLabel.CENTER);        
 	     headerLaberJLabel.setSize(350,100);
-	     controlPanel.add(headerLaberJLabel);
-	     
-	     final JFrame jFrame = new JFrame();
+	     controlPanel.add(headerLaberJLabel,BorderLayout.CENTER);
+	     Dimension size = new Dimension(30,10);
+	         showEvent();
+			 frame.setContentPane(controlPanel);
+			//frame.add(start);
+	}
+	private void showEvent()
+	{
+		jFrame = new JFrame();
 	     jFrame.setSize(400,400);
+	     jFrame.setTitle("Stating");
 	     jFrame.setLayout(new BorderLayout()); 
 			final JLabel aJLabel = new JLabel("",JLabel.CENTER);
 			 start = new JButton("Start Game");
+			 
+			 Dimension size = new Dimension(30,10);
 		     start.setPreferredSize(size); 
 		     controlPanel.add(start);
 		     
@@ -130,30 +142,18 @@ public class GUI extends JFrame implements ActionListener{
 				 public void actionPerformed(java.awt.event.ActionEvent e) {
 						// TODO Auto-generated method stub
 					 aJLabel.setText("start game");
-					 
+					 aJLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 					 jFrame.add(aJLabel,BorderLayout.NORTH);
 					 //jFrame.add(aJLabel);
+					 JLabel j = new JLabel();
+					 ImageIcon imdIcon = getImageIcon(null);
+					 j.setIcon(imdIcon);
+					 
+					
 					 jFrame.setVisible(true);
-
 					}
 			 });
-			 frame.setContentPane(controlPanel);
-			//frame.add(start);
-	}
-	private void showEvent()
-	{
-		final JFrame jFrame = new JFrame();
-		final JLabel aJLabel = new JLabel("");
-		 start = new JButton("Start Game");
-		 start.addActionListener(new ActionListener() {
-			 public void actionPerformed(java.awt.event.ActionEvent e) {
-					// TODO Auto-generated method stub
-				 aJLabel.setText("A Frame shown to the user.");
-		            frame.setVisible(true);
-
-				}
-		 });
-		 controlPanel.add(start);
+			 ImageIcon imdIcon=createImageIcon();
 	}
 
 	/**
@@ -164,10 +164,21 @@ public class GUI extends JFrame implements ActionListener{
 	 * @return an image icon
 	 */
 	private ImageIcon getImageIcon(Piece p) {
-		return null;
-		//To be implemented
 		
+		ImageIcon img = new ImageIcon("/Projetjava/src/main/resources/fr/dauphine/JavaAvance/icons/io");// 创建图片对象
+
+
+        return img;
 		
+	}
+	protected ImageIcon createImageIcon() {
+java.net.URL imgURL = getClass().getResource("1.png");
+if (imgURL != null) {
+return new ImageIcon(imgURL, "ok");
+} else {
+System.err.println("Couldn't find file: " );
+return null;
+}
 	}
 	public static void main(String[] args)
 	{
