@@ -1,5 +1,7 @@
 package fr.dauphine.JavaAvance.Solve;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -127,3 +129,67 @@ public class Solver {
 		
 	}
 }
+/**
+//J'ai pas reussi ¨¤ faire le solver
+//	On a d¨¦j¨¤ fait le input de file dans la classe de Checker
+	private static BufferedReader bf;
+	private static ArrayList<String[]> informations;
+	public Grid grid;
+	public Checker checker;
+	public String inputFile;
+	public static void inputFile(String inputFile) throws IOException { 
+	
+		informations = new ArrayList<String[]>();
+    try {
+        bf = new BufferedReader(new FileReader(inputFile));
+        String line = bf.readLine();
+        while(line  !=null) {
+            String[] tab = line.split(" ");
+            informations.add(tab);
+            line = bf.readLine();
+        }
+        bf.close();
+    }
+    catch(FileNotFoundException e) {
+        System.out.println("Erreur lors de l'ouverture du ficher \n"+ e);
+    }	
+	}	
+	 * @throws IOException 
+	
+//On va au d¨¦but v¨¦rifier s'il est d¨¦j¨¤ connect¨¦
+	public Solver(String inputFile) throws IOException {
+		this.grid = checker.buildGrid(inputFile);
+		Checker checker =new Checker();
+		Boolean success = checker.check(grid);
+		if(success==true)
+		{
+			checker.print(success);
+		}
+		else {
+			//touner les pi¨¨ces et r¨¦p¨¦ter l'etape checker
+		}
+	}
+
+	public Grid tournerGrid()
+	{
+		int w = grid.getWidth();
+		int h = grid.getHeight();
+		
+		 for(int i=0;i<h;i++) {
+		   	  for(int j=0;j<w;j++) {
+		   		 Piece p=grid.getPiece(i, j); 
+		   		 Piece nextP = grid.getNextPiece(p); 
+		   		 if(p.hasLeftConnector()==true)
+		   		  {
+		   			  if(nextP.hasRightConnector()==true)
+		   			  {
+		   				  
+		   			  }
+		   				  
+		   		  }
+		   	  }
+		   	  }
+
+	
+}
+	**/
