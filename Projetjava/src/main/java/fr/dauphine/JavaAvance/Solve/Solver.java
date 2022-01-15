@@ -1,7 +1,5 @@
 package fr.dauphine.JavaAvance.Solve;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -11,13 +9,13 @@ import java.util.Stack;
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.GUI.Grid;
-
+import java.lang.Math;
 
 public class Solver {
-
+	Grid g4;
 	public static void main(String[] args) {
 
-		//.  To be implemented
+		// To be implemented
 
 	}
 	
@@ -31,7 +29,7 @@ public class Solver {
 			Grid g2= new Grid(g.getWidth(),g.getHeight());
 			Generator gen=new Generator();
 			gen.copyGrid(g, g2, 0, 0);
-			Stack stack1 = new Stack();
+			Stack stack1 = new Stack<ArrayList<Piece>>();
 			
 			
 			Piece p=g2.getPiece(0,0);
@@ -62,7 +60,9 @@ public class Solver {
 		    				  Piece p3=g2.getPiece(i,j);
 		    				  possibleOrientations=p3.getPossibleOrientations();
 		    				  for (Orientation ori : possibleOrientations) {
+		    					  
 		    					  Piece p4=new Piece(p3.getPosY(),p3.getPosX(),p3.getType(),ori);
+		    					  if((i!=0 && i!=g2.getHeight()-1 && j!=0 && j!=g2.getWidth()-1) ||(i==0 &&p.hasTopConnector()==false) ||(i==g2.getHeight()-1 &&p.hasBottomConnector()==false) ||(j==0 &&p.hasLeftConnector()==false) ||(j==g2.getWidth()-1 &&p.hasRightConnector()==false)) {
 		    					  ArrayList<Piece> sol=(ArrayList<Piece>) sol2.clone();
 		    					  int v=0;
 		    					  Piece pg=null;
@@ -78,6 +78,7 @@ public class Solver {
 		    					//  if(pg==null &&ph==null) {
 		    						  sol.add(p4);
 			    					  stack2.push(sol);
+		    					  }
 		    					 /* }
 		    					  else if(pg!= null && ph==null) {
 		    						  if(p4.hasLeftConnector()==true && pg.hasRightConnector()==true) {
@@ -118,6 +119,7 @@ public class Solver {
 		    	 }
 		    	
 		    	 if(c.check(g3)==true) {
+		    		 g4=g3;
 		    		 System.out.println(si);
 		    		 System.out.println(g3);
 		    		 return true;
@@ -128,68 +130,106 @@ public class Solver {
 		return a;
 		
 	}
-}
-/**
-//J'ai pas reussi ¨¤ faire le solver
-//	On a d¨¦j¨¤ fait le input de file dans la classe de Checker
-	private static BufferedReader bf;
-	private static ArrayList<String[]> informations;
-	public Grid grid;
-	public Checker checker;
-	public String inputFile;
-	public static void inputFile(String inputFile) throws IOException { 
 	
-		informations = new ArrayList<String[]>();
-    try {
-        bf = new BufferedReader(new FileReader(inputFile));
-        String line = bf.readLine();
-        while(line  !=null) {
-            String[] tab = line.split(" ");
-            informations.add(tab);
-            line = bf.readLine();
-        }
-        bf.close();
-    }
-    catch(FileNotFoundException e) {
-        System.out.println("Erreur lors de l'ouverture du ficher \n"+ e);
-    }	
-	}	
-	 * @throws IOException 
-	
-//On va au d¨¦but v¨¦rifier s'il est d¨¦j¨¤ connect¨¦
-	public Solver(String inputFile) throws IOException {
-		this.grid = checker.buildGrid(inputFile);
-		Checker checker =new Checker();
-		Boolean success = checker.check(grid);
-		if(success==true)
-		{
-			checker.print(success);
+	/*public boolean solve2(Grid g) {
+		boolean a=false;
+		Checker c= new Checker();
+		if(c.check(g)==true) {
+			return true;
 		}
 		else {
-			//touner les pi¨¨ces et r¨¦p¨¦ter l'etape checker
-		}
-	}
-
-	public Grid tournerGrid()
-	{
-		int w = grid.getWidth();
-		int h = grid.getHeight();
+			Grid g2= new Grid(g.getWidth(),g.getHeight());
+			Generator gen=new Generator();
+			gen.copyGrid(g, g2, 0, 0);
+			
+		int nbocc=0;
+		while(nbocc<Math.pow(4,g.getWidth()*g.getHeight())) {
+			nbocc++;
+			System.out.println(nbocc);
+			System.out.println(g2);
 		
-		 for(int i=0;i<h;i++) {
-		   	  for(int j=0;j<w;j++) {
-		   		 Piece p=grid.getPiece(i, j); 
-		   		 Piece nextP = grid.getNextPiece(p); 
-		   		 if(p.hasLeftConnector()==true)
-		   		  {
-		   			  if(nextP.hasRightConnector()==true)
-		   			  {
-		   				  
-		   			  }
-		   				  
-		   		  }
-		   	  }
-		   	  }
-
+	      for(int i=0;i<g2.getHeight();i++) {
+	    	  for(int j=0;j<g2.getWidth();j++) {
+	    		  
+	    		  if(g2.isTotallyConnected(g2.getPiece(i, j))==false) {
+	    			  
+	    			  g2.getPiece(i, j).turn();
+	    		  }
+	    	  }
+	      }
+			if(c.check(g2)==true) {
+				System.out.println(g2);
+				return true;
+			}
+		}
+		}
+		return a;
+	}*/
 	
+	
+	
+	/**
+	//J'ai pas reussi ï¿½ï¿½ faire le solver
+//		On a dï¿½ï¿½jï¿½ï¿½ fait le input de file dans la classe de Checker
+		private static BufferedReader bf;
+		private static ArrayList<String[]> informations;
+		public Grid grid;
+		public Checker checker;
+		public String inputFile;
+		public static void inputFile(String inputFile) throws IOException { 
+		
+			informations = new ArrayList<String[]>();
+	    try {
+	        bf = new BufferedReader(new FileReader(inputFile));
+	        String line = bf.readLine();
+	        while(line  !=null) {
+	            String[] tab = line.split(" ");
+	            informations.add(tab);
+	            line = bf.readLine();
+	        }
+	        bf.close();
+	    }
+	    catch(FileNotFoundException e) {
+	        System.out.println("Erreur lors de l'ouverture du ficher \n"+ e);
+	    }	
+		}	
+		 * @throws IOException 
+		
+	//On va au dï¿½ï¿½but vï¿½ï¿½rifier s'il est dï¿½ï¿½jï¿½ï¿½ connectï¿½ï¿½
+		public Solver(String inputFile) throws IOException {
+			this.grid = checker.buildGrid(inputFile);
+			Checker checker =new Checker();
+			Boolean success = checker.check(grid);
+			if(success==true)
+			{
+				checker.print(success);
+			}
+			else {
+				//touner les piï¿½ï¿½ces et rï¿½ï¿½pï¿½ï¿½ter l'etape checker
+			}
+		}
+
+		public Grid tournerGrid()
+		{
+			int w = grid.getWidth();
+			int h = grid.getHeight();
+			
+			 for(int i=0;i<h;i++) {
+			   	  for(int j=0;j<w;j++) {
+			   		 Piece p=grid.getPiece(i, j); 
+			   		 Piece nextP = grid.getNextPiece(p); 
+			   		 if(p.hasLeftConnector()==true)
+			   		  {
+			   			  if(nextP.hasRightConnector()==true)
+			   			  {
+			   				  
+			   			  }
+			   				  
+			   		  }
+			   	  }
+			   	  }
+
+		
+	}
+		**/
 }
-	**/
