@@ -33,13 +33,7 @@ import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.Components.PieceType;
 import fr.dauphine.JavaAvance.Solve.Checker;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.geometry.Dimension2D;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+
 //import javafx.scene.text.Font;
 import java.awt.FlowLayout;
 
@@ -151,15 +145,17 @@ public class GUI extends JFrame implements ActionListener{
 			jPanel = new JPanel();
 		    jPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 
-			creerPiece();
-
-
-				
-				System.out.println("ok5");
-				putIntoInterface();
-				
-			   
+			/**creerPiece();
+			System.out.println("ok5");
+			putIntoInterface();
+				**/
+		    for(int i=0;i<12;i++)
+			   {
+				   afficherPieces(jPanel);
+			   }
 		     jFrame.add(jPanel);
+			   
+		     
 		     
 			 start.addActionListener(new ActionListener() {
 				 public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -343,7 +339,7 @@ public class GUI extends JFrame implements ActionListener{
 		for (int a = 0;a<i;a++)
 		{
 			for(int b = 0;b<j;b++)
-			{
+			{ 
 					if(p!=null) {
 					grid.setPiece(a, b, p.get(1));
 				System.out.println(p.get(0).getOrientation());
@@ -360,6 +356,8 @@ public class GUI extends JFrame implements ActionListener{
 		return grid;
 		
 	}
+	
+	
 	public void putIntoInterface()
 	{
 		ArrayList<JLabel> jl = new ArrayList<>();
