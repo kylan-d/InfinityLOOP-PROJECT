@@ -148,12 +148,13 @@ public class GUI extends JFrame implements ActionListener{
 					 JLabel j = new JLabel();
 					 ImageIcon imdIcon = getImageIcon(null);
 					 j.setIcon(imdIcon);
+					 jFrame.add(j);
 					 
 					
 					 jFrame.setVisible(true);
 					}
 			 });
-			 ImageIcon imdIcon=createImageIcon();
+			// ImageIcon imdIcon=createImageIcon();
 	}
 
 	/**
@@ -165,14 +166,16 @@ public class GUI extends JFrame implements ActionListener{
 	 */
 	private ImageIcon getImageIcon(Piece p) {
 		
-		ImageIcon img = new ImageIcon("/Projetjava/src/main/resources/fr/dauphine/JavaAvance/icons/io");// 创建图片对象
+		ImageIcon img =createImageIcon();
 
 
         return img;
 		
 	}
 	protected ImageIcon createImageIcon() {
-java.net.URL imgURL = getClass().getResource("1.png");
+		ClassLoader cldr = this.getClass().getClassLoader();
+
+java.net.URL imgURL = cldr.getResource("fr/dauphine/JavaAvance/icons/io/1.png");
 if (imgURL != null) {
 return new ImageIcon(imgURL, "ok");
 } else {
