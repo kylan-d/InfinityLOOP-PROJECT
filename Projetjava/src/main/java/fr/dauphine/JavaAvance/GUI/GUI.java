@@ -12,9 +12,12 @@ import java.lang.Thread.State;
 import java.net.URL;
 import java.security.PublicKey;
 import java.security.DrbgParameters.NextBytes;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.awt.Dimension;
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -137,25 +140,50 @@ public class GUI extends JFrame implements ActionListener{
 			 Dimension size = new Dimension(30,10);
 		     start.setPreferredSize(size); 
 		     controlPanel.add(start);
+		     aJLabel.setText("start game");
+			 aJLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+			 jFrame.add(aJLabel,BorderLayout.NORTH);
+			JPanel jPanel = new JPanel();
+		    jPanel.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
+			for(int i=0;i<12;i++)
+			   {
+				   afficherPieces(jPanel);
+			   }
+		     jFrame.add(jPanel);
 		     
 			 start.addActionListener(new ActionListener() {
 				 public void actionPerformed(java.awt.event.ActionEvent e) {
 						// TODO Auto-generated method stub
-					 aJLabel.setText("start game");
-					 aJLabel.setFont(new Font("Serif", Font.PLAIN, 30));
-					 jFrame.add(aJLabel,BorderLayout.NORTH);
-					 //jFrame.add(aJLabel);
-					 JLabel j = new JLabel();
-					 ImageIcon imdIcon = getImageIcon(null);
-					 j.setIcon(imdIcon);
-					 jFrame.add(j);
-					 
-					
+  
 					 jFrame.setVisible(true);
 					}
 			 });
-			// ImageIcon imdIcon=createImageIcon();
+			
 	}
+	public void afficherPieces( JPanel jPanel)
+	{ 			 
+		JLabel j = new JLabel();
+		 ArrayList<JLabel> jl = new ArrayList<>();
+		 ArrayList<ImageIcon> imdIcon = getImageIcon(null);
+
+		 Iterator<ImageIcon> iterator1 = imdIcon.iterator();
+		 while(iterator1.hasNext())
+		 {
+			 j.setIcon((Icon) iterator1.next());
+			 jl.add(j);
+		 }
+		 Iterator<JLabel> iterator2 = jl.iterator();
+
+		 while(iterator2.hasNext())
+		 {
+			 JLabel j1=iterator2.next();
+			 jPanel.add(j1);
+		 }
+		 
+
+	}
+	
+	
 
 	/**
 	 * Display the correct image from the piece's type and orientation
@@ -164,25 +192,46 @@ public class GUI extends JFrame implements ActionListener{
 	 *            the piece
 	 * @return an image icon
 	 */
-	private ImageIcon getImageIcon(Piece p) {
-		
-		ImageIcon img =createImageIcon();
-
-
-        return img;
+	private ArrayList<ImageIcon> getImageIcon(Piece p) {
+		ArrayList<ImageIcon> listImg=createImageIcon();
+		//Iterator iterator = listImg.iterator();
+		int min = 1;
+		int max = 10;
+		int num = min + (int)(Math.random() * (max-min+1));
+		ImageIcon img =null;
+		ArrayList<ImageIcon> listImg2 = new ArrayList<ImageIcon>();
+		for(int i = 0;i<12;i++)
+		{
+			img=listImg.get(num);
+			listImg2.add(img);
+		}
+        return listImg2;
 		
 	}
-	protected ImageIcon createImageIcon() {
+	protected ArrayList<ImageIcon> createImageIcon() {
 		ClassLoader cldr = this.getClass().getClassLoader();
-
-java.net.URL imgURL = cldr.getResource("fr/dauphine/JavaAvance/icons/io/1.png");
-if (imgURL != null) {
-return new ImageIcon(imgURL, "ok");
-} else {
-System.err.println("Couldn't find file: " );
-return null;
-}
+		java.net.URL imgURL =null;
+		ArrayList<ImageIcon> imageIcons = new ArrayList<>();
+		//java.net.URL imgURL1 = cldr.getResource("fr/dauphine/JavaAvance/icons/io/1.png");
+		for(int i = 1;i<16;i++)
+		{
+			imgURL = cldr.getResource("fr/dauphine/JavaAvance/icons/io/"+i+".png");
+			
+			if (imgURL != null) {
+				ImageIcon imageIcon = new ImageIcon(imgURL, "ok");
+				imageIcons.add(imageIcon);
+				} 
+			else {
+				System.err.println("Couldn't find file: " );
+				}
+		}
+		return imageIcons;
+		
+	
 	}
+	
+	
+	
 	public static void main(String[] args)
 	{
 		Grid grid=new Grid(10, 10);
