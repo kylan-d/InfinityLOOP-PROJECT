@@ -144,8 +144,8 @@ public boolean check(Grid g) {
 	int h=g.getHeight();
 	boolean a=true;
 	
-	//pour chaque piece, on regarde toute les pi®®ces ®§ qui elle est coonnect®¶, puis on regarde la pi®®ce ®§ 
-	//qui elle est cens®¶ etre connect®¶ et on regarde si cette seconde piece est connect®¶ a la premiere
+	//pour chaque piece, on regarde toute les pi√®ces √† qui elle est coonnect√©, puis on regarde la pi√®ece √† 
+	//qui elle est cens√© etre connect√© et on regarde si cette seconde piece est connect√© a la premiere
 	 for(int i=0;i<h;i++) {
    	  for(int j=0;j<w;j++) {
    		  Piece p=g.getPiece(i, j);
@@ -189,14 +189,15 @@ public boolean check(Grid g) {
 	 }
 		return a;
 }
-	public void print(boolean a) {
-		if (a==true)
-		{
-			System.out.println("°±SOLVED: true");
-			}
-		else {
-			System.out.println("°±SOLVED: false");
+public void print(boolean a) {
+	if (a==true)
+	{
+		System.out.println("¬∞¬±SOLVED: true");
 		}
+	else {
+		System.out.println("¬∞¬±SOLVED: false");
 	}
+}
+	
 
 }
